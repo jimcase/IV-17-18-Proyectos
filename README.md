@@ -4,6 +4,6 @@ Proyecto Infraestructura Virtual, UGR
 Se basará en una nube/servidor para guardar tus fotos personales.
 
 ### Tecnología usada:
-  -Backend: PHP.
+  -Backend: PHP.'\n'
   -Base de datos: MySQL.
   -Frontend: HTML5, CSS3.
