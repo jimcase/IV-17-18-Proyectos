@@ -8,4 +8,3 @@ Se basará en una nube/servidor para guardar tus fotos personales.
   -Base de datos: MySQL. (sistema de usuarios)
   -Frontend: HTML5, CSS3.
  
- ![Alt text](IV-17-18-Proyectos/images/srceen.jpg?raw=true)
