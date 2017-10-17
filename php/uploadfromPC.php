@@ -1,28 +1,32 @@
 <?php
     /* start the session */
 require('database.php');
-require('modules.php');
+
+require('imgClass.php');
 
 
 function uploadOK(){
     if($_SESSION['uploadOK'])
     {
-        echo ('<i class="fa fa-check-circle" aria-hidden="true"></i>');
+        echo ('<i class="fa fa-check-circle" aria-hidden="true" ></i>');
     }
     else{
         echo ('<i class="fa fa-times" aria-hidden="true"></i>');
     }
 }
-  
-session_start();
+session_start();  
+/* session_start();
 $mysqli = connectDB();
-
-if(!empty($_POST)){
+ */
+if(!empty($_POST)){    
+    
     // echo $_FILES["imgn"]["tmp_name"];
     // echo $_SESSION['email'];
     $emailFolder = $_SESSION['email'];
-    $new_name = $_POST['img_namePC'];
-    $target_dir = "uploads/".$emailFolder."/";    
+    $single_name = $_POST['img_namePC'];
+    $target_dir = "uploads/".$emailFolder."/";  
+    
+        
 
     if (!file_exists($target_dir)) {
         mkdir($target_dir, 0777, true);
@@ -32,6 +36,10 @@ if(!empty($_POST)){
     $uploadOk = 1;
     $imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
 
+    $destination = $single_name . "." .$imageFileType;
+    $destination = $target_dir . $destination;
+
+    
 
     $info_file = array();
     $aux = "OK";
@@ -87,19 +95,10 @@ if(!empty($_POST)){
     // if everything is ok, try to upload file
     } else {
         //move_uploaded_file($_FILES["file"]["tmp_name"], "../img/imageDirectory/" . $_FILES["file"]["name"]);
-        //$new_name = $POST['img_namePC'];
-        $new_name = $new_name . "." .$imageFileType;
-        $new_name = $target_dir . $new_name;
-        if (move_uploaded_file($_FILES["imgn"]["tmp_name"], $new_name)) {
-            $aux = "The file ". basename( $_FILES["imgn"]["name"]). " has been uploaded.";
-            array_push($info_file,$aux);
-            $_SESSION['uploadOK'] = true;
-        } 
-        else {
-            $aux = "Sorry, there was an error uploading your file.";
-            array_push($info_file,$aux);
-            $_SESSION['uploadOK'] = false;
-        }
+        //$destination = $POST['img_namePC'];
+        $img_obj = new IMG($single_name,$destination,$emailFolder, $destination);
+        $img_obj->addToDB($_FILES["imgn"]["tmp_name"]);      
+
     }
 
     //echo json_encode($info_file);
